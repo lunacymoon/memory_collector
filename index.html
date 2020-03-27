@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+
+    <title>My first BootstrapVue app</title>
+
+    <!-- Required Stylesheets -->
+    <link
+      type="text/css"
+      rel="stylesheet"
+      href="https://unpkg.com/bootstrap/dist/css/bootstrap.min.css"
+    />
+    <link
+      type="text/css"
+      rel="stylesheet"
+      href="https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.css"
+    />
+
+    <!-- Load polyfills to support older browsers -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es2015%2CIntersectionObserver"></script>
+
+    <!-- Required scripts -->
+    <script src="https://unpkg.com/vue@latest/dist/vue.js"></script>
+    <script src="https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD_ZL6ntxjALdzCsSZfndq4PcHelvsRqA0&callback=initMap" async defer></script>
+    <style>
+      /* Optional: Makes the sample page fill the window. */
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+      /* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+      #app, .container {
+        height: 100%;
+      }
+
+      #map {
+        height: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Our application root element -->
+    <div id="app">
+      <div id="map"></div>
+      <!-- <b-jumbotron header="BootstrapVue" lead="Bootstrap v4 Components for Vue.js 2">
+        <p>For more information visit our website</p>
+        <b-btn variant="primary" href="https://bootstrap-vue.js.org/">More Info</b-btn>
+      </b-jumbotron> -->
+
+      <!-- <b-form-group
+        horizontal
+        :label-cols="4"
+        description="Let us know your name."
+        label="Enter your name"
+      >
+        <b-form-input v-model.trim="name"></b-form-input>
+      </b-form-group> -->
+    </div>
+
+    <!-- Start running your app -->
+    <script>
+      window.app = new Vue({
+        el: '#app',
+        data: {
+          name: ''
+        },
+        computed: {
+        }
+      })
+
+      var mrt_data = [{"id": "BR01", "position": [24.998197, 121.57933799999999], "color": "BR"}, {"id": "BR02", "position": [24.998241, 121.573145], "color": "BR"}, {"id": "BR03", "position": [24.998585000000002, 121.568102], "color": "BR"}, {"id": "BR04", "position": [24.999385999999998, 121.558152], "color": "BR"}, {"id": "BR05", "position": [25.005475, 121.557107], "color": "BR"}, {"id": "BR06", "position": [25.018535, 121.55879099999999], "color": "BR"}, {"id": "BR07", "position": [25.023777, 121.55311499999999], "color": "BR"}, {"id": "BR08", "position": [25.026125, 121.54343700000001], "color": "BR"}, {"id": "BR09", "position": [25.032943, 121.54355100000001], "color": "BR"}, {"id": "BR10", "position": [25.041629, 121.54376699999999], "color": "BR"}, {"id": "BR11", "position": [25.052319, 121.54401100000001], "color": "BR"}, {"id": "BR12", "position": [25.060848999999997, 121.544227], "color": "BR"}, {"id": "BR13", "position": [25.063000000000002, 121.551996], "color": "BR"}, {"id": "BR14", "position": [25.079477, 121.54689499999999], "color": "BR"}, {"id": "BR15", "position": [25.084853, 121.55559199999999], "color": "BR"}, {"id": "BR16", "position": [25.082133, 121.567213], "color": "BR"}, {"id": "BR17", "position": [25.080028, 121.57508100000001], "color": "BR"}, {"id": "BR18", "position": [25.078532, 121.58476100000001], "color": "BR"}, {"id": "BR19", "position": [25.083661, 121.594408], "color": "BR"}, {"id": "BR20", "position": [25.083845, 121.60214099999999], "color": "BR"}, {"id": "BR21", "position": [25.072701000000002, 121.60715800000001], "color": "BR"}, {"id": "BR22", "position": [25.067147, 121.61144499999999], "color": "BR"}, {"id": "BR23", "position": [25.059905, 121.615953], "color": "BR"}, {"id": "BR24", "position": [25.055288, 121.61750009999999], "color": "BR"}, {"id": "R02", "position": [25.03283, 121.569576], "color": "R"}, {"id": "R03", "position": [25.033102, 121.56329199999999], "color": "R"}, {"id": "R04", "position": [25.033326000000002, 121.553526], "color": "R"}, {"id": "R05", "position": [25.032943, 121.54355100000001], "color": "R"}, {"id": "R06", "position": [25.033396, 121.53488200000001], "color": "R"}, {"id": "R07", "position": [25.033847, 121.52873899999999], "color": "R"}, {"id": "R08", "position": [25.032729, 121.51827], "color": "R"}, {"id": "R09", "position": [25.041256, 121.51603999999999], "color": "R"}, {"id": "R10", "position": [25.046255, 121.517532], "color": "R"}, {"id": "R11", "position": [25.052685, 121.52039199999999], "color": "R"}, {"id": "R12", "position": [25.057805, 121.520627], "color": "R"}, {"id": "R13", "position": [25.062904999999997, 121.51932], "color": "R"}, {"id": "R14", "position": [25.071353, 121.520118], "color": "R"}, {"id": "R15", "position": [25.084873, 121.52507800000001], "color": "R"}, {"id": "R16", "position": [25.093535, 121.52623], "color": "R"}, {"id": "R17", "position": [25.10306, 121.52251399999999], "color": "R"}, {"id": "R18", "position": [25.109721, 121.51884799999999], "color": "R"}, {"id": "R19", "position": [25.114523000000002, 121.51555900000001], "color": "R"}, {"id": "R20", "position": [25.120872, 121.506252], "color": "R"}, {"id": "R21", "position": [25.125491, 121.50113200000001], "color": "R"}, {"id": "R22", "position": [25.131841, 121.49863300000001], "color": "R"}, {"id": "R22A", "position": [25.136933, 121.50253000000001], "color": "R"}, {"id": "R23", "position": [25.137473999999997, 121.485444], "color": "R"}, {"id": "R24", "position": [25.130969, 121.47341000000002], "color": "R"}, {"id": "R25", "position": [25.125632999999997, 121.467102], "color": "R"}, {"id": "R26", "position": [25.13694, 121.459479], "color": "R"}, {"id": "R27", "position": [25.154042, 121.458872], "color": "R"}, {"id": "R28", "position": [25.167818, 121.44556100000001], "color": "R"}, {"id": "G01", "position": [24.957855, 121.53758400000001], "color": "G"}, {"id": "G02", "position": [24.967392999999998, 121.54131000000001], "color": "G"}, {"id": "G03", "position": [24.975169, 121.542942], "color": "G"}, {"id": "G03A", "position": [24.971907, 121.53033899999998], "color": "G"}, {"id": "G04", "position": [24.982899, 121.541352], "color": "G"}, {"id": "G05", "position": [24.9921276, 121.5406037], "color": "G"}, {"id": "G06", "position": [25.001853, 121.539051], "color": "G"}, {"id": "G07", "position": [25.014908, 121.53421599999999], "color": "G"}, {"id": "G08", "position": [25.020725, 121.528168], "color": "G"}, {"id": "G09", "position": [25.026357, 121.522873], "color": "G"}, {"id": "G10", "position": [25.032729, 121.51827], "color": "G"}, {"id": "G11", "position": [25.035547, 121.510857], "color": "G"}, {"id": "G12", "position": [25.042089999999998, 121.508303], "color": "G"}, {"id": "G13", "position": [25.049554, 121.51018400000001], "color": "G"}, {"id": "G14", "position": [25.052685, 121.52039199999999], "color": "G"}, {"id": "G15", "position": [25.052015, 121.533075], "color": "G"}, {"id": "G16", "position": [25.052319, 121.54401100000001], "color": "G"}, {"id": "G17", "position": [25.051835999999998, 121.55153], "color": "G"}, {"id": "G18", "position": [25.051652, 121.56470800000001], "color": "G"}, {"id": "G19", "position": [25.049283, 121.57801200000002], "color": "G"}, {"id": "O01", "position": [24.990045000000002, 121.50923700000001], "color": "O"}, {"id": "O02", "position": [24.993904999999998, 121.505113], "color": "O"}, {"id": "O03", "position": [25.002876, 121.51123100000001], "color": "O"}, {"id": "O04", "position": [25.013821, 121.51548500000001], "color": "O"}, {"id": "O05", "position": [25.026357, 121.522873], "color": "O"}, {"id": "O06", "position": [25.033847, 121.52873899999999], "color": "O"}, {"id": "O07", "position": [25.042355999999998, 121.532905], "color": "O"}, {"id": "O08", "position": [25.052015, 121.533075], "color": "O"}, {"id": "O09", "position": [25.059718, 121.533185], "color": "O"}, {"id": "O10", "position": [25.062694, 121.52641899999999], "color": "O"}, {"id": "O11", "position": [25.062904999999997, 121.51932], "color": "O"}, {"id": "O12", "position": [25.063256, 121.51272], "color": "O"}, {"id": "O13", "position": [25.063274, 121.50076200000001], "color": "O"}, {"id": "O14", "position": [25.060274, 121.49215600000001], "color": "O"}, {"id": "O15", "position": [25.055791, 121.484725], "color": "O"}, {"id": "O16", "position": [25.046492999999998, 121.471916], "color": "O"}, {"id": "O17", "position": [25.039704999999998, 121.46174599999999], "color": "O"}, {"id": "O18", "position": [25.036125, 121.452468], "color": "O"}, {"id": "O19", "position": [25.032718, 121.43547], "color": "O"}, {"id": "O20", "position": [25.0288671, 121.42270790000002], "color": "O"}, {"id": "O21", "position": [25.021862, 121.41127], "color": "O"}, {"id": "O50", "position": [25.070319, 121.496904], "color": "O"}, {"id": "O51", "position": [25.076859, 121.486347], "color": "O"}, {"id": "O52", "position": [25.080728, 121.47967299999999], "color": "O"}, {"id": "O53", "position": [25.085456, 121.47338899999998], "color": "O"}, {"id": "O54", "position": [25.091554000000002, 121.464471], "color": "O"}, {"id": "BL01", "position": [24.96012, 121.4205], "color": "BL"}, {"id": "BL02", "position": [24.966726, 121.436072], "color": "BL"}, {"id": "BL03", "position": [24.973094, 121.44436200000001], "color": "BL"}, {"id": "BL04", "position": [24.985339, 121.44878600000001], "color": "BL"}, {"id": "BL05", "position": [24.998037, 121.452514], "color": "BL"}, {"id": "BL06", "position": [25.008619, 121.45940900000001], "color": "BL"}, {"id": "BL07", "position": [25.013618, 121.46230200000001], "color": "BL"}, {"id": "BL08", "position": [25.023738, 121.46836100000002], "color": "BL"}, {"id": "BL09", "position": [25.03001, 121.47238999999999], "color": "BL"}, {"id": "BL10", "position": [25.03528, 121.499826], "color": "BL"}, {"id": "BL11", "position": [25.042089999999998, 121.508303], "color": "BL"}, {"id": "BL12", "position": [25.046255, 121.517532], "color": "BL"}, {"id": "BL13", "position": [25.044823, 121.52320800000001], "color": "BL"}, {"id": "BL14", "position": [25.042355999999998, 121.532905], "color": "BL"}, {"id": "BL15", "position": [25.041629, 121.54376699999999], "color": "BL"}, {"id": "BL16", "position": [25.041478, 121.551098], "color": "BL"}, {"id": "BL17", "position": [25.041349, 121.557802], "color": "BL"}, {"id": "BL18", "position": [25.041171, 121.565228], "color": "BL"}, {"id": "BL19", "position": [25.040859, 121.57629299999999], "color": "BL"}, {"id": "BL20", "position": [25.045054999999998, 121.582522], "color": "BL"}, {"id": "BL21", "position": [25.050461, 121.593268], "color": "BL"}, {"id": "BL22", "position": [25.052116, 121.60668600000001], "color": "BL"}, {"id": "BL23", "position": [25.055288, 121.61750009999999], "color": "BL"}, {"id": "Y07", "position": [24.982899, 121.541352], "color": "Y"}, {"id": "Y08", "position": [24.9829302, 121.53400990000002], "color": "Y"}, {"id": "Y09", "position": [24.9905493, 121.52505049999999], "color": "Y"}, {"id": "Y10", "position": [24.9919681, 121.51655320000002], "color": "Y"}, {"id": "Y11", "position": [24.993904999999998, 121.505113], "color": "Y"}, {"id": "Y12", "position": [25.0019806, 121.49605190000001], "color": "Y"}, {"id": "Y13", "position": [25.0044131, 121.4904608], "color": "Y"}, {"id": "Y14", "position": [25.0084104, 121.48415929999999], "color": "Y"}, {"id": "Y15", "position": [25.0144914, 121.4722124], "color": "Y"}, {"id": "Y16", "position": [25.015156, 121.464825], "color": "Y"}, {"id": "Y17", "position": [25.026125, 121.466839], "color": "Y"}, {"id": "Y18", "position": [25.039735, 121.46165500000001], "color": "Y"}, {"id": "Y19", "position": [25.050282, 121.46021599999999], "color": "Y"}, {"id": "Y20", "position": [25.061548300000002, 121.4599257], "color": "Y"}, {"id": "A1", "position": [25.0491868, 121.515245], "color": "A"}, {"id": "A2", "position": [25.055296300000002, 121.48139009999998], "color": "A"}, {"id": "A3", "position": [25.061716, 121.45670279999999], "color": "A"}, {"id": "A4", "position": [25.0591305, 121.44347320000001], "color": "A"}, {"id": "A5", "position": [25.053272600000003, 121.43734070000001], "color": "A"}, {"id": "A6", "position": [25.033475199999998, 121.4201443], "color": "A"}, {"id": "A7", "position": [25.041245999999997, 121.3832453], "color": "A"}, {"id": "A8", "position": [25.060436300000003, 121.36794029999999], "color": "A"}, {"id": "A9", "position": [25.0665023, 121.3590943], "color": "A"}, {"id": "A10", "position": [25.080351399999998, 121.2834868], "color": "A"}, {"id": "A11", "position": [25.086516, 121.2642601], "color": "A"}, {"id": "A12", "position": [25.081385, 121.2353293], "color": "A"}, {"id": "A13", "position": [25.077270300000002, 121.23006299999999], "color": "A"}, {"id": "A14a", "position": [25.0692598, 121.2187503], "color": "A"}, {"id": "A15", "position": [25.0560465, 121.2082923], "color": "A"}, {"id": "A16", "position": [25.046028399999997, 121.2045017], "color": "A"}, {"id": "A17", "position": [25.0189695, 121.21368740000001], "color": "A"}, {"id": "A18", "position": [25.013762, 121.2119733], "color": "A"}, {"id": "A19", "position": [25.001996, 121.20130630000001], "color": "A"}, {"id": "A20", "position": [24.9802492, 121.21407260000001], "color": "A"}, {"id": "A21", "position": [24.967381, 121.21974920000001], "color": "A"}]
+
+      var map;
+      function initMap(){
+        map = new google.maps.Map(document.getElementById('map'), {
+            center: {lat: 25.0625778, lng: 121.5140362},
+            zoom: 12,
+        });
+        for (var i = 0; i <= mrt_data.length; i++) {
+          add_marker(mrt_data[i]["position"], mrt_data[i]["color"])
+        }
+      }
+
+      function add_marker(position, color) {
+        var marker = new google.maps.Marker({
+          position: new google.maps.LatLng(position[0], position[1]),
+          map: map,
+          icon: "http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|" + get_color_string(color)
+          // icon: "http://www.oxxostudio.tw/img/articles/201801/google-maps-3-marker-icon.png"
+        });
+      }
+
+
+      function get_color_string(string) {
+        switch (string) {
+          case 'A':
+            return "8246AF";
+          case 'BL':
+            return "0070BD";
+          case 'BR':
+            return "C48C31";
+          case 'G':
+            return "008659";
+          case 'O':
+            return "F8B61C";
+          case 'R':
+            return "E3002C";
+          case 'Y':
+            return "FDDB00";
+          default:
+            return "111111";
+        }
+      }
+
+    </script>
+    
+  </body>
+</html>
